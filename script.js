@@ -98,7 +98,6 @@ fileInput.addEventListener("change", () => {
 
 function agregarTitulo(tablaId, titulo) {
     const tabla = document.getElementById(tablaId);
-    // Verificar si ya existe un título en la tabla y eliminarlo si es el caso
     const tituloExistente = tabla.querySelector('caption');
     if (tituloExistente) {
         tituloExistente.remove();
@@ -107,7 +106,6 @@ function agregarTitulo(tablaId, titulo) {
     caption.textContent = titulo;
     tabla.appendChild(caption);
 }
-
 
 function mostrarElemento(elemento) {
     elemento.style.display = "block";
@@ -129,16 +127,16 @@ function validarYProcesarArchivo() {
 
             if (!vectorRectangular) {
                 errorMessage.style.display = "block";
-                contentCard.style.display = "none"; // Oculta el contenido del archivo
+                contentCard.style.display = "none";
                 eliminarTitulosColumnas();
-                limpiarTablaW(); // Agrega esta línea para limpiar la tabla W
+                limpiarTablaW();
                 return;
             }
 
             errorMessage.style.display = "none";
-            mostrarElemento(contentCard); // Muestra el contenido del archivo
+            mostrarElemento(contentCard); 
             eliminarTitulosColumnas();
-            limpiarTablaW(); // Agrega esta línea para limpiar la tabla W
+            limpiarTablaW();
 
             agregarTitulo('q-table', 'Estados (Q)');
             agregarTitulo('f-table', 'Alfabeto (F)');
@@ -150,7 +148,7 @@ function validarYProcesarArchivo() {
             mostrarVectorEnTabla(vectorRectangular.F, fTableBody);
             mostrarVectorEnTabla([vectorRectangular.i], iTableBody);
             mostrarVectorEnTabla(vectorRectangular.A, aTableBody);
-            mostrarMatrizEnTabla(vectorRectangular.W, wTableBody, vectorRectangular.F);
+            mostrarMatrizEnTabla(vectorRectangular.W, wTableBody, vectorRectangular.Q, vectorRectangular.F);
         };
         reader.readAsText(file);
     }
@@ -168,7 +166,7 @@ function eliminarTitulosColumnas() {
 
 function limpiarTablaW() {
     const wTableBody = document.getElementById("w-table-body");
-    wTableBody.innerHTML = ""; // Elimina el contenido anterior de la tabla W
+    wTableBody.innerHTML = ""; 
 }
 
 function mostrarVectorEnTabla(vector, tbody) {
@@ -182,13 +180,12 @@ function mostrarVectorEnTabla(vector, tbody) {
     });
 }
 
-function mostrarMatrizEnTabla(matriz, tbody, encabezados) {
-    // Verificar si ya existe un encabezado de columna, y si no, agregar uno
+function mostrarMatrizEnTabla(matriz, tbody, encabezadosQ, encabezadosF) {
     if (tbody.querySelector("th") === null) {
         const headerRow = document.createElement("tr");
         headerRow.innerHTML = "<th>Estado</th>";
 
-        encabezados.forEach((element) => {
+        encabezadosF.forEach((element) => {
             const tableHeader = document.createElement("th");
             tableHeader.textContent = element;
             headerRow.appendChild(tableHeader);
@@ -197,25 +194,45 @@ function mostrarMatrizEnTabla(matriz, tbody, encabezados) {
         tbody.appendChild(headerRow);
     }
 
-    // Agregar filas de la matriz
-    matriz.forEach((fila) => {
-        const estado = fila[0].trim();
+    const filaIndiceMap = {};
+    encabezadosQ.forEach((estado, indice) => {
+        filaIndiceMap[estado.trim()] = indice;
+    });
+
+    const tablaFormato = [];
+    encabezadosQ.forEach(() => {
+        const fila = [];
+        encabezadosF.forEach(() => {
+            fila.push(""); 
+        });
+        tablaFormato.push(fila);
+    });
+
+    matriz.forEach((filaW) => {
+        const estadoOrigen = filaW[0].trim();
+        const simbolo = filaW[1].trim();
+        const estadoDestino = filaW[2].trim();
+
+        const indiceFila = filaIndiceMap[estadoOrigen];
+        const indiceColumna = encabezadosF.indexOf(simbolo);
+
+        tablaFormato[indiceFila][indiceColumna] = estadoDestino;
+    });
+
+    encabezadosQ.forEach((estado, indice) => {
         const tableRow = document.createElement("tr");
         const tableDataEstado = document.createElement("td");
         tableDataEstado.textContent = estado;
         tableRow.appendChild(tableDataEstado);
 
-        // Llenar las celdas correspondientes según los encabezados
-        for (let i = 1; i < fila.length; i++) {
-            const elemento = fila[i].trim();
+        tablaFormato[indice].forEach((elemento) => {
             const tableData = document.createElement("td");
             tableData.textContent = elemento;
             tableRow.appendChild(tableData);
-        }
+        });
 
         tbody.appendChild(tableRow);
     });
 }
 
-// Oculta el contenido del archivo al cargar la página
 ocultarElemento(contentCard);

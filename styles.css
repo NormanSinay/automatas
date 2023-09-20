@@ -4,11 +4,7 @@
     align-items: center;
     text-align: center;
     width: 100%;
-    padding-top: 20px;
-}
-
-.file-upload-wrapper {
-    margin-top: 20px;
+    padding-top: 10px;
 }
 
 .file-upload {
@@ -17,52 +13,48 @@
 
 .file-upload-label {
     border: 2px solid #4294b6;
-    padding: 20px;
+    padding: 5px;
     text-align: center;
     cursor: pointer;
     width: 50%;
     box-sizing: border-box;
     background-color: #f2f2f2;
-    margin: 20px; 
+}
+
+#content-display {
+    border: 2px solid #2cb663;
+    height: 100px;
 }
 
 .card-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    
 }
 
 .card {
-    border: 2px solid #4294b6;
-    padding: 10px;
-    width: 48%; 
-    box-sizing: border-box;
-    margin-bottom: 10px;
+    margin: 5px;
+    width: auto;
+    
 }
 
-.card#result-card {
-    width: calc(50% - 10px);
-    box-sizing: border-box;
+#tables-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    
 }
 
-.card#content-card {
-    width: calc(50% - 10px); 
-    box-sizing: border-box;
-    overflow: hidden; 
-}
-
-.card#content-card pre {
-    max-height: none; 
-    white-space: pre-wrap; 
-}
-
-#vector-table {
-    width: 100%;
-    margin-bottom: 10px; 
+.vector-table {
+    width: auto;
+    margin-right: 10px;
+    
 }
 
 #vector-table:last-child {
     margin-right: 0;
+    
 }
 
 .vector-table th,

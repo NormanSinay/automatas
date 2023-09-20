@@ -14,72 +14,59 @@
             <p>Arrastra y suelta un archivo aquí.</p>
         </label>
         <input type="file" id="input-file-now" class="file-upload" />
-
-        <div class="card-container">
+        
+        <div id="container" class="card-container">
             <div class="card" id="content-card">
                 <h2>Contenido del archivo original:</h2>
                 <pre id="content-display"></pre>
             </div>
 
-            <div class="card" id="result-card">
-                <h2>Autómata:</h2>
-                <table id="vector-table" class="vector-table">
-                    <thead>
-                        <tr>
-                            <th>Estados (Q)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="q-table-body">
-                    </tbody>
-                </table>
-                <table id="vector-table" class="vector-table">
-                    <thead>
-                        <tr>
-                            <th>Alfabeto (F)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="f-table-body">
-                    </tbody>
-                </table>
-                <table id="vector-table" class="vector-table">
-                    <thead>
-                        <tr>
-                            <th>Estado inicial (i)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="i-table-body">
-                    </tbody>
-                </table>
-                <table id="vector-table" class="vector-table">
-                    <thead>
-                        <tr>
-                            <th>Estado de Aceptación (A)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="a-table-body">
-                    </tbody>
-                </table>
-                <table id="vector-table" class="vector-table">
-                    <thead>
-                        <tr>
-                            <th>Matriz de Transición (W)</th>
-                        </tr>
-                        <tr>
-                            <th>Estado</th>
-                            <th>a</th>
-                            <th>b</th>
-                        </tr>
-                    </thead>
-                    <tbody id="w-table-body">
-                    </tbody>
-                </table>
+            <div id="tables-container">
+                <div class="card" id="q-card">
+                    <table id="q-table" class="vector-table q-table">
+                        <tbody id="q-table-body">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card" id="f-card">
+
+                    <table id="f-table" class="vector-table f-table">
+                        <tbody id="f-table-body">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card" id="i-card">
+                    <table id="i-table" class="vector-table i-table">
+                        <tbody id="i-table-body">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card" id="a-card">
+
+                    <table id="a-table" class="vector-table a-table">
+                        <tbody id="a-table-body">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card" id="w-card">
+                    <table id="w-table" class="vector-table w-table">
+                        <tbody id="w-table-body">
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+
         <div id="error-message" style="display: none; color: red;">
             El contenido del archivo es incorrecto.
         </div>
+
+        <script src="script.js"></script>
     </div>
-    <script src="script.js"></script>
 </body>
 
 </html>
